@@ -1,0 +1,38 @@
+#root {
+  margin: 0 auto;
+  padding: 1 rem;
+  text-align: center;
+}
+
+.reviewData {
+  margin-top: 15px;
+}
+
+.card {
+  background-color: #2b2b2b;
+  color: white;
+  padding: 10px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  box-shadow: none !important;
+  border-radius: 0;
+  margin: 10px;
+}
+
+.card .reviewData {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.card-header section {
+  margin-left: 25px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h4 {
+  font-size: 20px;
+}
