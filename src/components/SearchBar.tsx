@@ -1,10 +1,10 @@
-import { useState } from "react";
-import type { Game } from "../types";
+import { useState } from 'react';
+import type { Game } from '../types';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 function SearchBar() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState<Game[]>([]);
 
   useEffect(() => {
@@ -31,59 +31,96 @@ function SearchBar() {
   }, [query]);
 
   const handleSelectGame = (game: Game) => {
-    console.log("Selected game:", game);
+    console.log('Selected game:', game);
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: 'relative' }}>
       <input
-        type="text"
-        className="input mb-2"
-        placeholder="Search games..."
+        type='text'
+        className='input mb-2'
+        placeholder='Search games...'
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={e => setQuery(e.target.value)}
       />
 
       {results.length > 0 && (
         <div
           style={{
-            position: "absolute",
-            backgroundColor: "white",
-            border: "1px solid black",
-            top: "100%",
+            position: 'relative',
+            backgroundColor: 'white',
+            top: '100%',
             left: 0,
             right: 0,
-            maxHeight: "78vh",
-            overflowY: "auto",
+            maxHeight: '78vh',
+            overflowX: 'auto',
+            overflowY: 'hidden',
             zIndex: 20,
+            marginBottom: '10px',
           }}
         >
-          {results.map((game) => (
-            <div
-              key={game._id}
-              className="card mb-2"
-              style={{ cursor: "pointer" }}
-              onClick={() => handleSelectGame(game)}
-            >
-              <div
-                className="card-content"
-                style={{ display: "flex", gap: "10px" }}
-              >
-                {game.imageUrl && (
-                  <figure className="image is-64x64">
-                    <img src={game.imageUrl} alt={game.title} />
-                  </figure>
-                )}
-                <div>
-                  <p className="title is-6">{game.title}</p>
-                  <p className="subtitle is-7">{game.platform}</p>
-                  {game.createdAt === null && (
-                    <span className="tag is-info is-light">RAWG</span>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+          <table className='table is-fullwidth is-bordered is-striped'>
+            <tbody>
+              <tr>
+                {results.map(game => (
+                  <td
+                    key={game._id}
+                    style={{
+                      cursor: 'pointer',
+                      height: '130px',
+                      width: '250px',
+                      verticalAlign: 'top',
+                    }}
+                    onClick={() => handleSelectGame(game)}
+                  >
+                    {game.imageUrl && (
+                      <div
+                        className='is-flex image'
+                        style={{
+                          margin: '0 auto',
+                          width: 'fit-content',
+                        }}
+                      >
+                        <img
+                          src={game.imageUrl}
+                          alt={game.title}
+                          style={{
+                            margin: '0 auto',
+                            height: '128px',
+                            objectFit: 'cover',
+                            maxWidth: '80px',
+                          }}
+                        />
+                        <div
+                          style={{ display: 'flex', flexDirection: 'column' }}
+                        >
+                          <p
+                            className='title-is-small'
+                            style={{ textAlign: 'center', width: '125px' }}
+                          >
+                            {game.title}
+                          </p>
+
+                          <p
+                            className='subtitle-is-small'
+                            style={{ textAlign: 'center', width: '125px' }}
+                          >
+                            {game.platform}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {game.createdAt === null && (
+                      <div style={{ textAlign: 'center' }}>
+                        <span className='tag is-info is-light'>RAWG</span>
+                      </div>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
         </div>
       )}
     </div>

@@ -29,6 +29,17 @@
   margin-left: 25px;
 }
 
+.title-is-small {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.subtitle-is-small {
+  padding: 2px;
+  font-size: 0.7rem;
+  color: gray;
+}
+
 h5 {
   font-size: 16px;
 }
