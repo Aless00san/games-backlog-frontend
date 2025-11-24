@@ -47,3 +47,10 @@ h5 {
 h4 {
   font-size: 20px;
 }
+
+.is-tiny {
+  font-size: 0.4rem;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+}
