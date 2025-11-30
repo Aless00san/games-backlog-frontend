@@ -3,6 +3,7 @@ import {
   platformIcons,
   defaultPlatformIcon,
   platformColors,
+  specialStyles,
 } from "./platformIcons";
 import type { IconType } from "react-icons";
 
@@ -11,15 +12,9 @@ interface KanbanEntryCardProps {
 }
 
 export default function KanbanEntryCard({ entry }: KanbanEntryCardProps) {
-  const Icon: IconType = entry.platformId
-    ? platformIcons[entry.platformId] || defaultPlatformIcon
+  const Icon: IconType = entry.platform
+    ? platformIcons[entry.platform] || defaultPlatformIcon
     : defaultPlatformIcon;
-
-  const statusColors: Record<string, string> = {
-    Backlog: "#2b2b2b",
-    Playing: "#3D3D3D",
-    Completed: "#474747",
-  };
 
   return (
     <div
@@ -32,12 +27,11 @@ export default function KanbanEntryCard({ entry }: KanbanEntryCardProps) {
         cursor: "grab",
         borderTop: "1px solid white",
         borderBottom: "1px solid white",
-        backgroundColor: statusColors[entry.status],
       }}
     >
       <img
         src={entry.imageUrl}
-        alt={entry.name}
+        alt={entry.title}
         style={{
           width: "60px",
           height: "60px",
@@ -54,10 +48,14 @@ export default function KanbanEntryCard({ entry }: KanbanEntryCardProps) {
           gap: "0.25rem",
         }}
       >
-        <h4 style={{ margin: 0, fontSize: "1rem" }}>{entry.name}</h4>
+        <h4 style={{ margin: 0, fontSize: "1rem" }}>{entry.title}</h4>
       </div>
 
-      <Icon size={24} color={platformColors[entry.platformId]} />
+      <Icon
+        size={32}
+        color={platformColors[entry.platform]}
+        className={specialStyles[entry.platform]}
+      />
     </div>
   );
 }

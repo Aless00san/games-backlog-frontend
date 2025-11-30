@@ -36,8 +36,9 @@
 
 .subtitle-is-small {
   padding: 2px;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   color: gray;
+  margin-left: 5px;
 }
 
 h5 {
@@ -49,8 +50,16 @@ h4 {
 }
 
 .is-tiny {
-  font-size: 0.4rem;
+  font-size: 0.35rem;
   font-weight: bold;
   color: white;
   background-color: black;
+}
+
+.need-background {
+  background-color: white;
+}
+
+.rounded-icon {
+  border-radius: 12px;
 }

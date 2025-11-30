@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { DragDropContext } from '@hello-pangea/dnd';
-import type { DropResult } from '@hello-pangea/dnd';
-import Column from './Column';
-import type { Entry } from '../types';
-import mockEntries from '../mock';
-import SearchBar from './SearchBar';
+import { useState } from "react";
+import { DragDropContext } from "@hello-pangea/dnd";
+import type { DropResult } from "@hello-pangea/dnd";
+import Column from "./Column";
+import type { Entry, Game } from "../types";
+import mockEntries from "../mock";
+import SearchBar from "./SearchBar";
 
 interface ColumnData {
-  id: 'Backlog' | 'Playing' | 'Completed';
+  id: "Backlog" | "Playing" | "Completed";
   title: string;
   entries: Entry[];
 }
@@ -15,24 +15,46 @@ interface ColumnData {
 // Initialize columns with mock data
 const initialColumns: ColumnData[] = [
   {
-    id: 'Backlog',
-    title: 'Backlog',
-    entries: mockEntries.filter(e => e.status === 'Backlog'),
+    id: "Backlog",
+    title: "Backlog",
+    entries: mockEntries.filter((e) => e.status === "Backlog"),
   },
   {
-    id: 'Playing',
-    title: 'Playing',
-    entries: mockEntries.filter(e => e.status === 'Playing'),
+    id: "Playing",
+    title: "Playing",
+    entries: mockEntries.filter((e) => e.status === "Playing"),
   },
   {
-    id: 'Completed',
-    title: 'Completed',
-    entries: mockEntries.filter(e => e.status === 'Completed'),
+    id: "Completed",
+    title: "Completed",
+    entries: mockEntries.filter((e) => e.status === "Completed"),
   },
 ];
 
 export default function KanbanBoard() {
   const [columns, setColumns] = useState<ColumnData[]>(initialColumns);
+
+  const handleAddGame = (game: Game) => {
+    setColumns((prev) => {
+      return prev.map((col) => {
+        if (col.id === "Backlog") {
+          const newEntry: Entry = {
+            _id: crypto.randomUUID(),
+            title: game.title,
+            imageUrl: game.imageUrl,
+            platform: game.platformNames[0],
+            status: "Backlog",
+            date: "",
+          };
+          return {
+            ...col,
+            entries: [...col.entries, newEntry],
+          };
+        }
+        return col;
+      });
+    });
+  };
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -45,9 +67,11 @@ export default function KanbanBoard() {
     )
       return;
 
-    const sourceColIndex = columns.findIndex(c => c.id === source.droppableId);
+    const sourceColIndex = columns.findIndex(
+      (c) => c.id === source.droppableId
+    );
     const destColIndex = columns.findIndex(
-      c => c.id === destination.droppableId
+      (c) => c.id === destination.droppableId
     );
     const sourceCol = columns[sourceColIndex];
     const destCol = columns[destColIndex];
@@ -76,17 +100,17 @@ export default function KanbanBoard() {
 
   return (
     <>
-      <SearchBar />
+      <SearchBar handleAddGame={handleAddGame} />
       <DragDropContext onDragEnd={onDragEnd}>
         <div
           style={{
-            display: 'flex',
-            gap: '15px',
-            overflowX: 'hidden',
-            minHeight: '400px',
+            display: "flex",
+            gap: "15px",
+            overflowX: "hidden",
+            minHeight: "400px",
           }}
         >
-          {columns.map(column => (
+          {columns.map((column) => (
             <Column
               key={column.id}
               id={column.id}

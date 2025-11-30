@@ -1,10 +1,9 @@
 export interface Entry {
   _id: string;
-  name: string;
+  title: string;
   imageUrl: string;
   username?: string;
-  platformId: number;
-  review: string;
+  platform: string;
   date: string;
   status: "Backlog" | "Playing" | "Completed";
 }
@@ -14,7 +13,7 @@ export interface Game {
   rawgId: string;
   title: string;
   imageUrl: string;
-  platform: string;
+  platformNames: string[];
   createdAt: string;
   updatedAt: string;
 }
