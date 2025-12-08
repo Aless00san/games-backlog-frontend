@@ -13,10 +13,14 @@
   border: 1px solid #dbdbdb;
   border-radius: 6px;
 }
+
 .result-cell {
-  cursor: pointer;
   height: 150px;
   width: 230px;
   vertical-align: top;
   padding: 6px;
+}
+
+.small-gap {
+  gap: 5px !important;
 }
